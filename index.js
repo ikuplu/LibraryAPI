@@ -3,6 +3,10 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
+// Body Parser Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 const data = require('./books.json');
 
 // READ    - GET     - /books
@@ -27,6 +31,8 @@ function readBooks(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(data);
 }
+
+function createBook(req, res) {}
 
 app.listen('4000', () => {
   console.log('Server started at port 4000');
