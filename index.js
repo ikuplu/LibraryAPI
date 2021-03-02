@@ -1,5 +1,9 @@
 const express = require('express');
+const { v4: uuidv4 } = require('uuid');
+
 const app = express();
+
+const data = require('./books.json');
 
 // READ    - GET     - /books
 // CREATE  - POST    - /books
@@ -18,6 +22,11 @@ app.put('/books/:id', (req, res) => {
 app.delete('/books/:id', (req, res) => {
   deleteBook(req, res);
 });
+
+function readBooks(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(data);
+}
 
 app.listen('4000', () => {
   console.log('Server started at port 4000');
