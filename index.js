@@ -74,6 +74,22 @@ function updateBook(req, res) {
   }
 }
 
+function deleteBook(req, res) {
+  const bookToDelete = data.find((book) => book.id === req.params.id);
+  if (!bookToDelete) {
+    res.status(404).json({ msg: 'The id is invalid!' });
+    return;
+  } else {
+    data.splice(data.indexOf(bookToDelete), 1);
+    // data = data.filter((book) => book.id !== req.params.id) <<a better choice if multiple books need to be deleted>>
+
+    res.json({
+      msg: 'The book is deleted!',
+      Books: data,
+    });
+  }
+}
+
 app.listen('4000', () => {
   console.log('Server started at port 4000');
 });
