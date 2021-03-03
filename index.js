@@ -54,6 +54,26 @@ function createBook(req, res) {
   }
 }
 
+function updateBook(req, res) {
+  if (typeof req.body === 'undefined') {
+    res.status(400).json({ msg: 'Please enter the info you want to update!' });
+    return;
+  } else {
+    const bookToUpdate = data.find((book) => book.id === req.params.id);
+    if (bookToUpdate) {
+      bookToUpdate.title = req.body.title ? req.body.title : bookToUpdate.title;
+      bookToUpdate.author = req.body.author
+        ? req.body.author
+        : bookToUpdate.author;
+
+      res.json({ msg: 'The data is updated!', Books: data });
+    } else {
+      res.status(404).json({ msg: 'The id is invalid!' });
+      return;
+    }
+  }
+}
+
 app.listen('4000', () => {
   console.log('Server started at port 4000');
 });
